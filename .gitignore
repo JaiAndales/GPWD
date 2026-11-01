@@ -1,0 +1,6 @@
+node_modules/
+frontend/.next/
+.env
+.env.*
+!.env.example
+backend/data/*.json
