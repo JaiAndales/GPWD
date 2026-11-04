@@ -126,14 +126,16 @@ app.post("/api/auth/login", (request, response) => {
     return response.status(401).json({ error: "Username or password is incorrect." });
   }
   loginAttempts.delete(request.ip);
-  const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
-  response.setHeader("Set-Cookie", `${cookieName}=${makeSession(process.env.ADMIN_USERNAME)}; HttpOnly; Path=/; SameSite=Lax; Max-Age=28800${secure}`);
+  const isProduction = process.env.NODE_ENV === "production";
+  const cookieAttributes = `HttpOnly; Path=/; SameSite=${isProduction ? "None" : "Lax"}; Max-Age=28800${isProduction ? "; Secure" : ""}`;
+  response.setHeader("Set-Cookie", `${cookieName}=${makeSession(process.env.ADMIN_USERNAME)}; ${cookieAttributes}`);
   response.json({ username: process.env.ADMIN_USERNAME });
 });
 
 app.post("/api/auth/logout", (request, response) => {
-  const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
-  response.setHeader("Set-Cookie", `${cookieName}=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0${secure}`);
+  const isProduction = process.env.NODE_ENV === "production";
+  const cookieAttributes = `HttpOnly; Path=/; SameSite=${isProduction ? "None" : "Lax"}; Max-Age=0${isProduction ? "; Secure" : ""}`;
+  response.setHeader("Set-Cookie", `${cookieName}=; ${cookieAttributes}`);
   response.status(204).end();
 });
 

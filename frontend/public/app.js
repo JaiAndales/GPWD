@@ -1,7 +1,7 @@
 const currentYear = new Date().getFullYear();
 const MEMBERSHIP_FEE = 20;
 const YEARLY_PAYMENT = 120;
-const puroks = ["Ampalaya", "Balanghoy", "Gabi", "Kaimito", "Kamansi", "Kamonggay", "Kangkong", "Kawayanan", "Lemonsito", "Mangga", "Nangka", "Nangka Lumoy", "Nangka Moler", "Sacred Heart", "Saging", "Tambis", "Tugas", "Ube"];
+const puroks = ["Ampalaya", "Balanghoy", "Gabi", "Kaimito", "kalabasa", "Kamansi", "Kamonggay", "Kangkong", "Kawayanan", "Lemonsito", "Mangga", "Nangka", "Nangka Lumoy", "Nangka Moler", "Sacred Heart", "Saging", "Tambis", "Tugas", "Ube"];
 const disabilityTypes = ["Speech and Language Impairment", "Physical Disability", "Orthopedic", "Visual", "Psychosocial", "Mental", "Learning Disability", "Hearing Impairment", "Communication Disability", "Intellectual Disability", "Chronic Illness", "Rare Diseases", "Cancer"];
 let members = [];
 let activityEntries = [];

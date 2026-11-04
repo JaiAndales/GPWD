@@ -19,7 +19,13 @@ In `backend`, copy `.env.example` to `.env` and set:
 - `ADMIN_USERNAME` and `ADMIN_PASSWORD`: the admin login credentials.
 - `SESSION_SECRET`: a long random secret used to sign the HttpOnly session cookie.
 
-Keep `.env` private. It is excluded from Git. For a separately hosted frontend and backend, set `NEXT_PUBLIC_API_URL` in the frontend build environment to the backend's base URL (for example, `https://api.example.com`) and set the backend's `FRONTEND_URL` to the frontend origin to allow credentialed browser requests. If `NEXT_PUBLIC_API_URL` is unset, the frontend defaults to `http://localhost:4000`.
+Keep `.env` private. It is excluded from Git. The frontend calls the API through the `/api` route, which Next.js rewrites to the backend using `BACKEND_URL`. For local development, this defaults to `http://localhost:4000`.
+
+### Vercel and Render deployment
+
+- In Vercel, set `BACKEND_URL` to the Render backend's base URL (for example, `https://your-api.onrender.com`), with no trailing slash, then redeploy the frontend. This routes `/api` requests through the Vercel site so session cookies remain first-party.
+- In Render, set `FRONTEND_URL` to the exact Vercel site origin (scheme and hostname, with no path), and configure `DATABASE_URL`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and `SESSION_SECRET`.
+- Both deployed services must use HTTPS. Render's `FRONTEND_URL` must match the Vercel site's origin exactly for credentialed API requests.
 
 ## Run the applications
 

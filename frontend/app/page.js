@@ -5,7 +5,7 @@ import Script from "next/script";
 export default function HomePage() {
   return (
     <>
-      <div className="app-shell" data-api-base-url={process.env.NEXT_PUBLIC_API_URL || ""}>
+      <div className="app-shell">
         <aside className="sidebar" id="sidebar">
           <a className="brand" href="#payment-lookup" aria-label="Gun-ob PWD Registry home">
             <span className="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 3.5 27 8v7.4c0 6.4-4.4 10.9-11 13.1C9.4 26.3 5 21.8 5 15.4V8l11-4.5Z"/><path d="M16 10v12M10 16h12"/></svg></span>
