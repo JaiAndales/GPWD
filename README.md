@@ -49,7 +49,7 @@ Open the URL printed by Next.js, usually http://localhost:3000. If that port is 
 
 ## Access
 
-Members land on the public payment-history lookup and verify with their registered name and date of birth. They can see their membership start date and paid membership/yearly records only.
+Members land on the public payment-history lookup and verify with their registered name and date of birth. They can see the earliest year with a paid yearly-payment record and their paid membership/yearly records only.
 
 Admins select **Admin login** in the upper-right corner. After successful login, they must confirm **Who is on Duty Today** before entering the admin workspace. Duty changes and registry activity are stored in Neon.
 

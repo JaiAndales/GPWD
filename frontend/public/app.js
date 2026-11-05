@@ -244,7 +244,11 @@ function sumIncome(records) {
 }
 
 function memberSince(member) {
-  return member.createdAt ? formatDate(member.createdAt) : "Not recorded";
+  const paidYears = Object.entries(member.payments || {})
+    .filter(([, payment]) => payment.paid)
+    .map(([year]) => Number(year))
+    .filter(Number.isInteger);
+  return paidYears.length ? String(Math.min(...paidYears)) : "Not recorded";
 }
 
 function statusPill(status, automatic = false) {
@@ -409,7 +413,7 @@ function renderPublic() {
     }).then((history) => {
       const rows = history.payments.length ? history.payments.map((payment) => `<tr><td>${escapeHtml(payment.type)}</td><td>${payment.date ? formatDate(payment.date) : "Date not recorded"}</td><td><strong>${formatCurrency(payment.amount)}</strong></td></tr>`).join("") : `<tr><td colspan="3"><div class="table-empty">No paid payments have been recorded yet.</div></td></tr>`;
       result.className = "lookup-result show";
-      result.innerHTML = `<div class="result-title">Payment history for ${escapeHtml(history.memberName)}.</div><p>Member since: ${escapeHtml(history.memberSince ? formatDate(history.memberSince) : "Not recorded")}</p><div class="table-wrap"><table><thead><tr><th>Payment</th><th>Date paid</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+      result.innerHTML = `<div class="result-title">Payment history for ${escapeHtml(history.memberName)}.</div><p>Member since: ${escapeHtml(history.memberSince || "Not recorded")}</p><div class="table-wrap"><table><thead><tr><th>Payment</th><th>Date paid</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table></div>`;
     }).catch((error) => {
       result.className = "lookup-result show error";
       result.innerHTML = `<div class="result-title">We couldn't verify those details.</div>${escapeHtml(error.message || "Check your registered name and date of birth, or contact the Barangay Gun-ob PWD desk.")}`;

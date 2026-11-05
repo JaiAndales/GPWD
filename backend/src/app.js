@@ -160,7 +160,11 @@ app.post("/api/public/payment-lookup", (request, response, next) => {
       if (payment.paid) payments.push({ type: `Yearly payment (${year})`, amount: 120, date: payment.date || "" });
     }
     payments.sort((left, right) => (right.date || "").localeCompare(left.date || ""));
-    response.json({ memberName: member.name, memberSince: member.createdAt || "", payments });
+    const paidYears = Object.entries(member.payments || {})
+      .filter(([, payment]) => payment.paid)
+      .map(([year]) => Number(year))
+      .filter(Number.isInteger);
+    response.json({ memberName: member.name, memberSince: paidYears.length ? String(Math.min(...paidYears)) : "", payments });
   } catch (error) {
     next(error);
   }
